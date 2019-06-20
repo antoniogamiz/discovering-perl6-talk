@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
 
-    <title>reveal.js</title>
+    <title>Descubriendo Perl6</title>
 
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/reveal.css" />
@@ -34,6 +34,171 @@
         <section>
           <h2>Descubriendo Perl6</h2>
           <h6><small>Antonio Gámiz</small></h6>
+        </section>
+        <section>
+          <h5>Camelia, el bicho de Perl6</h5>
+          <img style="width:60%; height: 60%;" src="./images/camelia.png" />
+          <aside class="notes">
+            Su nombre es una referencia a la mascota del dromedario asociado a
+            Perl, y su forma, siguiendo la tradición amorosa de la comunidad
+            Perl, es una reproducción de un "error de software". Los diseños en
+            espiral incrustados en sus alas recuerdan las letras "P6", la
+            abreviatura de Perl 6.
+          </aside>
+        </section>
+        <section>
+          <section>
+            <h3>Multiparadigma</h3>
+          </section>
+          <section>
+            <h4>OOP</h4>
+            <pre><code class="hljs" data-trim>
+              class Perl6::OOP {
+                has Str %atributos;
+                
+                method say() { ... }
+              }
+
+              role Pintar {
+                (...)
+              }
+            </code></pre>
+            <div class="fragment">
+              <h4>Funcional</h4>
+              <pre><code class="hljs" data-trim>
+                # Para ver cómo es esto pásate por la charla de JJ
+                # a las 15:00!
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <h5>Unos cuanticos más</h5>
+              <pre><code class="hljs" data-trim>
+                # Declarativa
+                # Imperativa
+                # Y otros tantos que no entiendo
+              </code></pre>
+            </div>
+          </section>
+        </section>
+        <section>
+          <h3>Unicode!</h3>
+          <pre><code class="hljs" data-trim>
+            say "\c[family: man woman girl boy]"; # OUTPUT: «👨‍👩‍👧‍👦␤» 
+          </code></pre>
+          <pre class="fragment"><code class="hljs" data-trim>
+              my $var = ⅒ + 2 + Ⅻ;
+              say $var;              # OUTPUT: «14.1␤» 
+          </code></pre>
+          <pre class="fragment"><code class="hljs" data-trim>
+              A ∪ U === U;
+              A ∩ U === A;
+              A ∩ ∅ === ∅;
+              A ∪ ∅ === A;
+              my @a = <1 2 3>;
+              my @b = <4 5 6>;
+              say (@a,@b)»[1];  # OUTPUT: «(2 5)␤»
+              say (@a,@b)>>[1]; # OUTPUT: «(2 5)␤»
+          </code></pre>
+        </section>
+        <section>
+          <section>
+            <h3>Gramáticas!</h3>
+            <pre class="fragment"><code class="hljs" data-trim>
+            unit grammar Perl6::TypeGraph::Decl;
+
+            token ident      { <.alpha> \w*                         }
+            token apostrophe { <[ ' \- ]>                           }
+            token identifier { <.ident> [ <.apostrophe> <.ident> ]* }
+            token longname   { <identifier>+ % '::'                 }
+            token package    { class | module | role | enum         }
+            token rolesig    { '[' <-[ \[\] ]>* ']'                 }
+            rule  inherits   { 'is' <longname>                      }
+            rule  roles      { 'does' <longname><rolesig>?          }
+            
+            rule TOP {
+                ^
+                <package>
+                <longname><rolesig>?
+                [ <inherits> | <roles> ]*
+                $
+            }
+            </code></pre>
+          </section>
+          <section>
+            <img src="images/typegraph.png" alt="">
+            <pre><code class="hljs" data-trim>
+                [Basic]
+                # Base types
+                class Mu
+                class Junction                      is Mu
+                class Any                           is Mu
+                class Scalar                        is Any
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <h4>Hazlo como quieras</h4>
+          <pre class="fragments"><code class="hljs" data-trim>
+          # Tipos
+          my $sth;                           # lo que quieras
+          my Str @text = ["array", "string"];# Array de Str
+          my Int %hash{Str} = a => 1, b => 2;# hash de Str a Int
+          
+          # Incluso subtipos
+          subset File of Str where .IO.e     # archivos existentes
+
+          sub read-file(File $f) {
+            ...;
+          }
+          </code></pre>
+
+          <pre class="fragments"><code class="hljs" data-trim>
+            # Argumentos
+            sub a ($whatever) { ... }
+            sub b (:$named)   { ... }
+            
+            # Multi rutinas
+            multi sub stringify(0) { say "zero" }
+            multi sub stringify($) { say "lo que sea" }
+          </code></pre>
+        </section>
+        <section>
+          <h4>Scripting</h4>
+        </section>
+        <section>
+          <section>
+            <h4>Documentación!</h4>
+            <h5>https://docs.perl6.org/</h5>
+          </section>
+          <section>
+            <h4>Pod 6</h4>
+            <pre><code class="hljs" data-trim>
+              =begin pod
+
+              =head1 Los objetos también tienen documentación!
+
+              En Perl6 todo es un objeto.
+
+              =begin code
+              #| Este comentario es parte de la función!
+              sub alguna-funcion() {...}
+              =end code
+
+              =end pod
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <h4>¿Quieres aprenderlo?</h4>
+          <ul>
+            <li>https://docs.perl6.org/</li>
+            <li>Perl6 Weekly Challenge</li>
+            <li>IRC Channel en freenode => #perl6</li>
+            <li>Advent calendar</li>
+          </ul>
+        </section>
+        <section>
+          <img style="width:60%; height:60%;" src="images/meme_final.jpg" alt="">
         </section>
       </div>
     </div>
