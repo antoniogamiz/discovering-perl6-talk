@@ -36,15 +36,23 @@
           <h6><small>Antonio Gámiz</small></h6>
         </section>
         <section>
-          <h5>Camelia, el bicho de Perl6</h5>
-          <img style="width:60%; height: 60%;" src="./images/camelia.png" />
-          <aside class="notes">
-            Su nombre es una referencia a la mascota del dromedario asociado a
-            Perl, y su forma, siguiendo la tradición amorosa de la comunidad
-            Perl, es una reproducción de un "error de software". Los diseños en
-            espiral incrustados en sus alas recuerdan las letras "P6", la
-            abreviatura de Perl 6.
-          </aside>
+          <section>
+            <h5>Camelia, el bicho de Perl6</h5>
+            <img style="width:60%; height: 60%;" src="./images/camelia.png" />
+            <aside class="notes">
+              Su nombre es una referencia a la mascota del dromedario asociado a
+              Perl, y su forma, siguiendo la tradición amorosa de la comunidad
+              Perl, es una reproducción de un "error de software". Los diseños en
+              espiral incrustados en sus alas recuerdan las letras "P6", la
+              abreviatura de Perl 6.
+            </aside>
+          </section>
+          <section>
+            <img src="images/Perl.jpg" alt="">
+          </section>
+        </section>
+        <section>
+          <p>Perl 6 unifies many great ideas that aren't usually found in other programming languages.</p>
         </section>
         <section>
           <section>
@@ -101,6 +109,35 @@
           </code></pre>
         </section>
         <section>
+            <h4>Hazlo como quieras</h4>
+            <pre class="fragment"><code class="hljs" data-trim>
+            # Tipos
+            my $sth;                           # lo que quieras
+            my Str @text = ["array", "string"];# Array de Str
+            my Int %hash{Str} = a => 1, b => 2;# hash de Str a Int
+            </code></pre>
+
+            <pre class="fragment"><code class="hljs" data-trim>
+            
+            # Incluso subtipos
+            subset File of Str where .IO.e     # archivos existentes
+  
+            sub read-file(File $f) {
+              ...;
+            }
+            </code></pre>
+  
+            <pre class="fragment"><code class="hljs" data-trim>
+              # Argumentos
+              sub a ($whatever) { ... }
+              sub b (:$named)   { ... }
+              
+              # Multi rutinas
+              multi sub stringify(0) { say "zero" }
+              multi sub stringify($) { say "lo que sea" }
+            </code></pre>
+          </section>
+        <section>
           <section>
             <h3>Gramáticas!</h3>
             <pre class="fragment"><code class="hljs" data-trim>
@@ -135,35 +172,6 @@
                 class Scalar                        is Any
             </code></pre>
           </section>
-        </section>
-        <section>
-          <h4>Hazlo como quieras</h4>
-          <pre class="fragments"><code class="hljs" data-trim>
-          # Tipos
-          my $sth;                           # lo que quieras
-          my Str @text = ["array", "string"];# Array de Str
-          my Int %hash{Str} = a => 1, b => 2;# hash de Str a Int
-          
-          # Incluso subtipos
-          subset File of Str where .IO.e     # archivos existentes
-
-          sub read-file(File $f) {
-            ...;
-          }
-          </code></pre>
-
-          <pre class="fragments"><code class="hljs" data-trim>
-            # Argumentos
-            sub a ($whatever) { ... }
-            sub b (:$named)   { ... }
-            
-            # Multi rutinas
-            multi sub stringify(0) { say "zero" }
-            multi sub stringify($) { say "lo que sea" }
-          </code></pre>
-        </section>
-        <section>
-          <h4>Scripting</h4>
         </section>
         <section>
           <section>
